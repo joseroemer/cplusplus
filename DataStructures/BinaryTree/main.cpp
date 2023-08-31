@@ -26,18 +26,40 @@ class BinaryTree
 	void inorder(node<T> *pNode);
 	void preorder(node<T> *pNode);
 	void postorder(node<T> *pNode);
-	
+	void deleteNodes(node<T> *pNode);
 	public:
 		BinaryTree()
 		{
 			root = NULL;
 		}
+		~BinaryTree();
+	
 		void insert(T data);	
 		void runInorder();
 		void runPreorder();
 		void runPostorder();
 };
 
+template<typename T>
+BinaryTree<T>::~BinaryTree()
+{
+	if (root!=NULL)
+	{
+		cout<<"delete nodes: ";
+		deleteNodes(root);
+	}
+}
+template<typename T>
+void BinaryTree<T>::deleteNodes(node<T> *pNode)
+{
+	if(pNode)
+	{
+		deleteNodes(pNode->left);
+		deleteNodes(pNode->right);
+		cout<<pNode->data<<", ";
+		delete pNode;
+	}
+}
 template<typename T>
 void BinaryTree<T>::insertNode(node<T> *nodeRoot, node<T> *nodeNew)
 {
